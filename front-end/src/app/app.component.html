@@ -1,0 +1,20 @@
+<h2>Reports</h2>
+
+<table>
+  <tr *ngFor="let report of reports">
+    <td class="info">
+      <p>Id: {{ report.payload.reportId}}</p>
+      <p>State: {{report.state}}</p>
+    </td>
+    <td>
+      <p>Type: {{report.payload.reportType}}</p>
+      <p>Message: {{report.payload.message}}</p>
+    </td>
+    <td class="btns">
+      <p><button (click)="block(report.payload.reportId)">Block</button></p>
+      <p><button (click)="resolve(report.payload.referenceResourceId)">Resolve</button></p>
+    </td>
+  </tr>
+</table>
+
+<!-- <router-outlet></router-outlet> -->

@@ -1,0 +1,29 @@
+table {
+  width: 70%;
+  border: 1px solid black;
+  font-size: 15px;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+tr {
+  border-bottom: 1px solid black;
+}
+
+.info {
+  padding-left: 25px;
+}
+
+.btns {
+  padding-top: 10px;
+  float: right;
+  padding-right: 25px;
+}
+
+button {
+  width: 100px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 6px;
+  border: 1px solid;
+}
