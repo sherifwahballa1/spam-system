@@ -22,8 +22,10 @@ export class ReportService {
     return this.http.put(`${environment.host}/reports/${reportId}`, { ticketState: "CLOSED" });
   }
 
-  blockReport(contentID) {
-    return this.http.post(`${environment.host}/reports/${contentID}`, {});
+  blockReport(reportID, contentID) {
+    return this.http.post(`${environment.host}/reports/${contentID}`, {
+      reportID
+    });
   }
 
   allReports(): Observable<Report[]> {

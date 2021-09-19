@@ -4,7 +4,7 @@
   "description": "reporting system for users that lets them report spam to the social media platform, and our spam protection team.",
   "main": "app.js",
   "scripts": {
-    "start":"nodemon server.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",

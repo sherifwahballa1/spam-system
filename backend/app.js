@@ -20,7 +20,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:4200"],
+    origin: ["http://localhost:4200", "http://localhost:4200"],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     allowedHeaders: ["Content-Type", "Authorization", "origin"],
     optionsSuccessStatus: 204,

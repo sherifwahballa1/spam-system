@@ -30,9 +30,9 @@ export class AppComponent implements OnInit {
     }
   }
 
-  async block(contentID) {
+  async block(reportID, contentID) {
     try {
-      let data = await this.reportService.blockReport(contentID).toPromise();
+      let data = await this.reportService.blockReport(reportID, contentID).toPromise();
       await this.getAllReports();
       alert(data['message'])
     } catch (error) {

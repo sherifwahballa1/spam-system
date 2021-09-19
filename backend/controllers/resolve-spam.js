@@ -18,16 +18,24 @@ async function resolveSpam(req, res) {
       }
 
       data = JSON.parse(data);
-      let index = data.elements.findIndex((el) => el.payload.reportId === req.params.id);
+      let index = data.elements.findIndex((el) => {
+        return el.id == req.params.id;
+      });
       if (index < 0)
         return res.status(404).json({ message: "Report not exists " });
 
       data.elements[index].state = value.ticketState;
 
-      fs.writeFile(`${__dirname}/../data/reports.json`, JSON.stringify(data), function writeJSON(err) {
-        if (err) return res.status(500).json({ message: err.message });
-        return res.status(200).json({ message: "Report resolved successfully" });
-      });
+      fs.writeFile(
+        `${__dirname}/../data/reports.json`,
+        JSON.stringify(data),
+        function writeJSON(err) {
+          if (err) return res.status(500).json({ message: err.message });
+          return res
+            .status(200)
+            .json({ message: "Report resolved successfully" });
+        }
+      );
     });
   } catch (e) {
     console.log(e.message);

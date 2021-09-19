@@ -1,0 +1,18 @@
+version: "3"
+services:
+  spam-system-server:  # name of the first service
+    container_name: spam-system-back
+    build: # specify the directory of the Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+  spam-system-client:
+    container_name: spam-system-client
+    build: # specify the directory of the Dockerfile
+      context: ./front-end
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80" # maps port 4200 on localhost to 80 in container
+    depends_on:
+      - "spam-system-server"

@@ -3,7 +3,7 @@
 <table>
   <tr *ngFor="let report of reports">
     <td class="info">
-      <p>Id: {{ report.payload.reportId}}</p>
+      <p>Id: {{ report.id}}</p>
       <p>State: {{report.state}}</p>
     </td>
     <td>
@@ -11,8 +11,8 @@
       <p>Message: {{report.payload.message}}</p>
     </td>
     <td class="btns">
-      <p><button (click)="block(report.payload.reportId)">Block</button></p>
-      <p><button (click)="resolve(report.payload.referenceResourceId)">Resolve</button></p>
+      <p><button (click)="block(report.id, report.reference.referenceId)">Block</button></p>
+      <p><button (click)="resolve(report.id)">Resolve</button></p>
     </td>
   </tr>
 </table>

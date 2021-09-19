@@ -1,3 +1,4 @@
+const e = require("express");
 const fs = require("fs");
 
 function blockContent(req, res) {
@@ -5,26 +6,59 @@ function blockContent(req, res) {
     fs.readFile(
       `${__dirname}/../data/blockedList.json`,
       "utf8",
-      (err, data) => {
+      (err, fileData) => {
         if (err) {
           return res.status(500).json({ message: err.message });
         }
+        fileData = JSON.parse(fileData);
+        let index = fileData.blocked.findIndex((el) => {
+          return (
+            el.id === req.params.postId && el.reportID === req.body.reportID
+          );
+        });
 
-        data = JSON.parse(data);
-        let index = data.blocked.findIndex((el) => el.id === req.params.postId);
         if (index >= 0)
-          return res.status(404).json({ message: "Post already blocked" });
+          return res.status(201).json({ message: "Content already blocked" });
 
-        data.blocked.push({ id: req.params.postId });
+        fileData.blocked.push({
+          id: req.params.postId,
+          reportID: req.body.reportID,
+        });
 
         fs.writeFile(
           `${__dirname}/../data/blockedList.json`,
-          JSON.stringify(data),
+          JSON.stringify(fileData),
           function writeJSON(err) {
             if (err) return res.status(500).json({ message: err.message });
-            return res
-              .status(200)
-              .json({ message: "Post blocked successfully" });
+            fs.readFile(
+              `${__dirname}/../data/reports.json`,
+              "utf8",
+              (err, data) => {
+                if (err) {
+                  return res.status(500).json({ message: err.message });
+                }
+                data = JSON.parse(data);
+                let index = data.elements.findIndex((el) => {
+                  return (
+                    el.reference.referenceId === req.params.postId &&
+                    el.id === req.body.reportID
+                  );
+                });
+
+                data.elements[index].state = "BLOCKED";
+                fs.writeFile(
+                  `${__dirname}/../data/reports.json`,
+                  JSON.stringify(data),
+                  function writeJSON(err) {
+                    if (err)
+                      return res.status(500).json({ message: err.message });
+                    return res
+                      .status(200)
+                      .json({ message: "Post blocked successfully" });
+                  }
+                );
+              }
+            );
           }
         );
       }
