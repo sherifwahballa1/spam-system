@@ -2,7 +2,10 @@
 #### reporting system for users that lets them report spam to the social media platform, and our spam protection team.
 
 ## Run
-* `docker-compose up --build`
+
+```bash
+$ docker-compose up --build
+```
 
 >The app should run on <span style="color:orange; font-weight: bold;">http://locahost:4200</span>
 
